@@ -1,25 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
-
+import "./App.css";
+import {useDispatch} from "react-redux";
+import Data from "./data/data_sample.json";
+import {useEffect} from "react";
+import {changeJsonData} from "./redux/reducers/jsonData";
+import Travel from "./functions/Travel";
+import DownloadHtml from "./functions/DownloadHtml";
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(changeJsonData(Data.data));
+    }, []);
+
+    return (
+        <div>
+            <DownloadHtml id={Data.rootNodeId} />
+            <Travel id={Data.rootNodeId} />
+        </div>
+    );
 }
 
 export default App;
